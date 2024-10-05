@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyqe1uawkowbe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_84tlc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rmp5j"]
+
+[sub_resource type="Gradient" id="Gradient_g2vjb"]
+offsets = PackedFloat32Array(0.632258, 0.954839, 0.982036, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_58255"]
+gradient = SubResource("Gradient_g2vjb")
+
+[node name="Node2D" type="Node2D"]
+material = SubResource("ShaderMaterial_84tlc")
+position = Vector2(6, 12)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(961.25, 537.75)
+scale = Vector2(1919.5, 1076.5)
+mesh = SubResource("BoxMesh_rmp5j")
+texture = SubResource("GradientTexture1D_58255")
+
+[node name="Hydrothermal Vents" type="Node" parent="."]
+
+[node name="Mussels" type="Node" parent="."]
+
+[node name="Cold Seeps" type="Node" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(513, 839)
+scale = Vector2(1.15534, 1.30439)
+amount = 31
+lifetime = 7.06
+preprocess = 133.33
+speed_scale = 2.94
+randomness = 0.19
+emission_shape = 1
+emission_sphere_radius = 14.82
+particle_flag_align_y = true
+gravity = Vector2(0, -10)
+
+[node name="Sand" type="Polygon2D" parent="."]
+position = Vector2(1340, -126)
+scale = Vector2(1.15534, 1.30439)
+color = Color(0.890196, 0.858824, 0.470588, 1)
+polygon = PackedVector2Array(1907, 1047, 2099, 610, 1913, -20, -46, -8, -64, 1125, 1901, 1143)
