@@ -2,6 +2,7 @@
 class_name ChemosyntheticLife
 extends CharacterBody2D
 
+var col= CollisionShape2D.new()
 var image = Sprite2D.new()
 var body
 
@@ -27,7 +28,12 @@ static func create(chemical:int, health:float, location:Vector2, image):
 	this.health=health
 	this.global_position =location
 	this.image.texture = image
+	var shape=CircleShape2D.new()
+	shape.radius=max(image.get_size().x*0.5,image.get_size().y*0.5)
+	this.col.shape=shape
 	this.add_child(this.image)
+	this.add_child(this.col)
+	this.scale=Vector2(0.1,0.1)
 	
 	return this
 # Called when the node enters the scene tree for the first time.

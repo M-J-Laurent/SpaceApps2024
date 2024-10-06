@@ -41,11 +41,11 @@ func createEnergyProducers(amount:int):
 	var ChemosyntheticChemical = rng.randi_range(0, ChemicalGenerator.ChemicalType.size()-1)
 	for i in range(amount*2):
 		var spawnRadius=Generators[i%amount].effectRadius
-		var xlocal= rng.randf_range(-spawnRadius,spawnRadius)
+		var xlocal= rng.randf_range(-spawnRadius,spawnRadius)+Generators[i%amount].global_position.x
 		ChemosyntheticOrganisms.append(ChemosyntheticLife.create(
 			ChemosyntheticChemical,
 			100,
-			Generators[i%amount].global_position+Vector2(xlocal, 1080-100+0.8*sin(xlocal/10.0)+20*sin(xlocal/50.0)+60*sin(xlocal/134.0)),
+			Vector2(xlocal, 1080-120+0.8*sin(xlocal/10.0)+20*sin(xlocal/50.0)+60*sin(xlocal/134.0)),
 			life
 		))
 		add_child(ChemosyntheticOrganisms[i])
