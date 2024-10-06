@@ -95,7 +95,6 @@ func takeChemical(chemical:int, portion) -> float:
 	
 func _is_clicked(event):
 	if clickBox.get_rect().has_point(to_local(event.position)):
-		emit_signal("is_clicked")
 		return true
 	return false
 
