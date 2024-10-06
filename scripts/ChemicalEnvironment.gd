@@ -54,6 +54,16 @@ func createEnergyProducers(amount:int):
 #		Generators.append(ChemicalGenerator.create([ChemicalType.find_key(rng.randi_range(0,3)), ChemicalType.find_key(rng.randi_range(0,3))], [rng.randf_range(1,10), rng.randf_range(1,10)], groundFunc(i), 10))
 #		Generators[i].owner=get_tree().edited_scene_root
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			for i in range(0,len(Generators)):
+				if Generators[i]._is_clicked(event):
+#					info.set_Visible()
+					return 0
+#			info.set_Invisible()
+
 func _process(delta):
 	ChemosyntheticOrganisms.shuffle()
 	for i in range(len(ChemosyntheticOrganisms)):

@@ -3,7 +3,7 @@ extends Node2D
 
 class_name ChemicalGenerator
 
-var image = Sprite2D.new()
+
 
 enum ChemicalType{
 	SULFUR,
@@ -16,7 +16,10 @@ var chemicals:Array[ChemicalType] = []
 var concentrations=[]
 var effectRadius =0
 var ratesOfProduction:Array[float]=[]
-var body = preload("res://sprites/icon.svg")
+var image = CPUParticles2D.new()
+var clickBox = Sprite2D.new()
+var body = preload("res://sprites/vecteezy_white-circle-png_21115771.png")
+var boxText = preload("res://sprites/icon.svg")
 
 
 static func create(chemicals:Array[int], rates:Array[float], location:Vector2, radius:float):
@@ -30,9 +33,27 @@ static func create(chemicals:Array[int], rates:Array[float], location:Vector2, r
 	this.effectRadius=radius
 	for i in range(len(chemicals)):
 		this.concentrations.append(0)
-	this.image.texture = this.body
-	this.add_child(this.image)
 	
+	this.image.texture = this.body
+	this.clickBox.texture = this.boxText
+	
+	this.image.amount = 25.0
+	this.image.lifetime = 6.0
+	this.image.speed_scale = 2.94
+	this.image.randomness = 1.0
+	this.image.lifetime_randomness = 0.13
+	this.image.emission_shape = this.image.EMISSION_SHAPE_SPHERE_SURFACE
+	this.image.emission_sphere_radius = 10.0
+	this.image.set_gravity(Vector2(0,-10))
+	this.image.z_as_relative = false
+	this.image.set_z_index(-4)
+	
+	this.clickBox.visible = false
+	this.clickBox.scale = Vector2(0.4, 1)
+	
+	
+	this.add_child(this.image)
+	this.add_child(this.clickBox)
 	
 	return this
 
@@ -70,3 +91,11 @@ func takeChemical(chemical:int, portion) -> float:
 			amount=concentrations[index]
 			concentrations[index]=0
 	return amount
+	
+	
+func _is_clicked(event):
+	if clickBox.get_rect().has_point(to_local(event.position)):
+		emit_signal("is_clicked")
+		return true
+	return false
+
