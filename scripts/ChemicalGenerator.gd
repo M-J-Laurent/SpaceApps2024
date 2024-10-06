@@ -16,14 +16,15 @@ var chemicals:Array[ChemicalType] = []
 var concentrations=[]
 var effectRadius =0
 var ratesOfProduction:Array[float]=[]
-var body = preload("res://icon.svg")
+var body = preload("res://sprites/icon.svg")
 
 
-static func create(chemicals:Array[ChemicalType], rates:Array[float], location:Vector2, radius:float):
+static func create(chemicals:Array[int], rates:Array[float], location:Vector2, radius:float):
 #	if len(chemicals) != len(rates) and len(rates) !=1:
 #		printerr("Need to have as many rates as you do chemicals")
 	var this= ChemicalGenerator.new()
-	this.chemicals=chemicals
+	for i in chemicals:
+		this.chemicals.append(i)
 	this.ratesOfProduction=rates
 	this.global_position =location
 	this.effectRadius=radius
@@ -51,11 +52,11 @@ func isProducingChemical(target:ChemicalType):
 			return true
 	return false
 	
-func canTakeChemicals(position):
-	if (global_position-position).abs()<effectRadius:
+func canTakeChemicals(position:Vector2):
+	if (global_position-position).length()<effectRadius:
 		return true
 	
-func takeChemical(chemical:ChemicalType, portion) -> float:
+func takeChemical(chemical:int, portion) -> float:
 	var index
 	var amount:float=0
 	for i in range(len(chemicals)):

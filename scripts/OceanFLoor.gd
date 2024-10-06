@@ -4,7 +4,7 @@ class_name Bounds
 var ground = Polygon2D.new()
 var groundCol = CollisionPolygon2D.new()
 
-var sandText= preload("res://abrasive-beige-surface.jpg")
+var sandText= preload("res://sprites/abrasive-beige-surface.jpg")
 	# Called when the node enters the scene tree for the first time.
 func groundfunc(x:float):
 	return Vector2((x/10.0)+(-1920/2.0), -100+0.8*sin((x/10.0)/10)+20*sin((x/10.0)/50.0)+60.0*sin((x/10.0)/134.0))
