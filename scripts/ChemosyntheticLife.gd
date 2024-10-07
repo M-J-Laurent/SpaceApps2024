@@ -16,7 +16,7 @@ enum ChemicalType{
 var neededEnergy
 var maxhealth:float
 var health:float
-var rateOfHunger:float=0.5
+var rateOfHunger:float=0.1
 var SPEED:float = 10
 var direction:int = 0
 var infood:bool=true
@@ -74,3 +74,8 @@ func findfood():
 	var rng=RandomNumberGenerator.new()
 	var dir = [-1,1]
 	direction=dir[rng.randi_range(0,1)]
+
+func _is_clicked_worm(event):
+	if image.get_rect().has_point(to_local(event.position)):
+		return true
+	return false
