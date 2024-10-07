@@ -23,8 +23,8 @@ var boxText = preload("res://sprites/icon.svg")
 
 
 static func create(chemicals:Array[int], rates:Array[float], location:Vector2, radius:float):
-#	if len(chemicals) != len(rates) and len(rates) !=1:
-#		printerr("Need to have as many rates as you do chemicals")
+	if len(chemicals) != len(rates) and len(rates) !=1:
+		printerr("Need to have as many rates as you do chemicals")
 	var this= ChemicalGenerator.new()
 	for i in chemicals:
 		this.chemicals.append(i)
@@ -65,9 +65,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	for i in range(len(concentrations)):
+		if len(ratesOfProduction)>1:
+			concentrations[i]+=ratesOfProduction[i]
+		else:
+			concentrations[i]+=ratesOfProduction[0]
 	pass
 
-func isProducingChemical(target:ChemicalType):
+func isProducingChemical(target:int):
 	for i in range(len(chemicals)):
 		if chemicals[i]==target:
 			return true

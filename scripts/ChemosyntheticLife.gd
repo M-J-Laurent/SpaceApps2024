@@ -13,10 +13,11 @@ enum ChemicalType{
 	SULFIDE,
 	OXYGEN
 }
+var rng= RandomNumberGenerator.new()
 var neededEnergy
 var maxhealth:float
 var health:float
-var rateOfHunger:float=0.1
+var rateOfHunger:float=rng.randf_range(0.1,0.2)
 var SPEED:float = 10
 var direction:int = 0
 var infood:bool=true
@@ -62,11 +63,13 @@ func _process(delta):
 	move_and_slide()
 	pass
 
-func eat(portion:float):
-	if health+portion<=maxhealth:
-		health+=portion
+func eat(food:float):
+	if health+food<=maxhealth:
+		health+=food
 	else:
 		health=maxhealth
+	
+	
 func getPortion()->float:
 	return (maxhealth-health)/2
 

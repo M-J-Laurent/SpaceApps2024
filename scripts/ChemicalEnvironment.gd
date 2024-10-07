@@ -26,7 +26,8 @@ func _ready():
 	pass # Replace with function body.
 	
 func groundFunc(x:float):
-	return Vector2(x+70, 1080-100+0.8*sin(x/10.0)+20*sin(x/50.0)+60*sin(x/134.0))
+	return Vector2(x+70, 1080-100+0.8*sin((x+70)/10.0)+20*sin((x+70)/50.0)+60*sin((x+70)/134.0))
+#((x)+(-1920/2.0), -100+0.8*sin((x)/10)+20*sin((x)/50.0)+60.0*sin((x)/134.0))
 
 func createEnvironment(Amount:int):
 	createEnergyProducers(Amount)
@@ -36,11 +37,11 @@ func createEnvironment(Amount:int):
 func createPredator(amount: int): 
 	for i in range(amount):
 		var spawnRadius=Generators[i%amount].effectRadius
-		var xlocal= rng.randf_range(-spawnRadius,spawnRadius) + Generators[i%amount].global_position.x
+		var xlocal= rng.randf_range(-spawnRadius,spawnRadius) + (i+1)*1920/amount
 		Predators.append(Predator.create(
 			Vector2(xlocal, groundFunc(xlocal).y - 200), 
 			pred,
-			rng.randf_range(70.0,170.0)
+			rng.randf_range(100.0,150.0)
 		))
 		add_child(Predators[i])
 		Predators[i].owner=get_tree().edited_scene_root
@@ -53,7 +54,7 @@ func createEnergyProducers(amount:int):
 			[GenChemical1, GenChemical2], 
 			[rng.randf_range(1, 10), rng.randf_range(1, 10)], 
 			groundFunc(i*1920/amount), 
-			10
+			50
 		))
 		add_child(Generators[i])
 		Generators[i].owner=get_tree().edited_scene_root
@@ -102,24 +103,26 @@ func _process(delta):
 			if Generators[j].canTakeChemicals(ChemosyntheticOrganisms[i].global_position):
 				if ChemosyntheticOrganisms[i].neededEnergy in Generators[j].chemicals:
 					ChemosyntheticOrganisms[i].eat(Generators[j].takeChemical(ChemosyntheticOrganisms[i].neededEnergy, ChemosyntheticOrganisms[i].getPortion()))
+	ChemosyntheticOrganisms.shuffle()
 #	print(Generators[0].image.global_position)
 	for i in range( len(Predators) ):
-		if Predators[i].is_Hungry() and len(Predators) >0 and len(ChemosyntheticOrganisms)>0:
+		if Predators[i].is_Hungry() and len(Predators) >0 and len(ChemosyntheticOrganisms)>0 :
 			var minDist=[Predators[0].global_position.distance_to(ChemosyntheticOrganisms[0].global_position),0,0]
 			for j in range(len(ChemosyntheticOrganisms)-1,-1,-1):
 				var distance = Predators[i].global_position.distance_to(ChemosyntheticOrganisms[j].global_position)
 				if distance <= Predators[i].huntingRadius and distance < minDist[0]:
 					minDist=[distance,i,j] 
 			Predators[minDist[1]].target=ChemosyntheticOrganisms[minDist[2]].global_position
-					
 			
 			for j in range(len(ChemosyntheticOrganisms)-1,-1,-1):
 				var Dist=Predators[i].global_position.distance_to(ChemosyntheticOrganisms[j].global_position)
-				if Dist < 100:
+				if Dist < 80:
 					Predators[i].eat(ChemosyntheticOrganisms[j].health)
 					var dead=ChemosyntheticOrganisms[j]
 					ChemosyntheticOrganisms.remove_at(j)
 					dead.queue_free()
+		else:
+			Predators[i].target=Vector2.ZERO
 	for i in range(len(ChemosyntheticOrganisms)-1,-1,-1):
 		if ChemosyntheticOrganisms[i].health<=0:
 			var dead=ChemosyntheticOrganisms[i]

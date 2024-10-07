@@ -21,7 +21,7 @@ func textInfo(info):
 		%infoText.set_text("Tubeworms are most known for its habitant around hydrothermal vents and its grouped and tube-like appearance. Tubeworms are commonly found nearby hydrothermal vents collecting sulfide from the vents as nutrition. Tubeworms use bacteria, which occupies inside itself, it order to get the nutrition from sulfide")
 	elif info == "Fish":
 		%infoTitle.set_text("[font_size=50][b]Fishes             [/b][/font_size]")
-		%infoText.set_text("Fishes are a surrogate representing the predacious organism in the chemosynthetic ecosystem. Feeding off of tubeworms, they are the top of our tentative food chain. Being at the top of the food chain, they die eventually to the circle of life. This then serve as food for the organisms who need nutrients in the ecosystem.")
+		%infoText.set_text("Fishes are a surrogate representing the predacious organism in the chemosynthetic ecosystem. Feeding off of tubeworms, they are the top of our tentative food chain. Being at the top of the food chain, they die eventually to the circle of life. This would then serve as food for the organisms who need nutrients in the ecosystem.")
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
